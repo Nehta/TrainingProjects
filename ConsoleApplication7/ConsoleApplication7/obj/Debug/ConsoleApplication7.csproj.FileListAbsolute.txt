@@ -1,0 +1,13 @@
+c:\users\aliaksandr_burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\ConsoleApplication7.exe.config
+C:\Users\Aliaksandr_Burchak\Documents\Visual Studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\ConsoleApplication7.exe
+C:\Users\Aliaksandr_Burchak\Documents\Visual Studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\ConsoleApplication7.pdb
+C:\Users\Aliaksandr_Burchak\Documents\Visual Studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\obj\Debug\ConsoleApplication7.exe
+C:\Users\Aliaksandr_Burchak\Documents\Visual Studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\obj\Debug\ConsoleApplication7.pdb
+C:\Users\Aliaksandr_Burchak\Documents\Visual Studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Aliaksandr_Burchak\Documents\Visual Studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Aliaksandr_Burchak\Documents\Visual Studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\obj\Debug\ConsoleApplication7.csprojResolveAssemblyReference.cache
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\EntityFramework.dll
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\EntityFramework.xml
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Debug\EntityFramework.SqlServer.xml

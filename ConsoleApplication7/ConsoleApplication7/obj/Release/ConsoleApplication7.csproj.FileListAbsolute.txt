@@ -1,0 +1,8 @@
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Release\ConsoleApplication7.exe.config
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Release\ConsoleApplication7.exe
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Release\ConsoleApplication7.pdb
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Release\HtmlAgilityPack.dll
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Release\HtmlAgilityPack.pdb
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\bin\Release\HtmlAgilityPack.xml
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\obj\Release\ConsoleApplication7.exe
+C:\Users\Aliaksandr_Burchak\documents\visual studio 2013\Projects\ConsoleApplication7\ConsoleApplication7\obj\Release\ConsoleApplication7.pdb
