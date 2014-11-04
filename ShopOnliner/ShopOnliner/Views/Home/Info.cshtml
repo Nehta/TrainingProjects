@@ -1,0 +1,17 @@
+﻿<h1>@Model.name</h1>
+
+<p>@Model.rate</p>
+<p>@Model.minPrice</p>
+<p>@Model.maxPrice</p>
+
+@foreach (var category in Model.Categories)
+{ 
+    <h5>@category.name</h5>
+    foreach (var subcategory in category.Categories1)
+    { 
+       <p> @subcategory.name : @subcategory.value</p>
+    }
+    <br/>
+}
+
+

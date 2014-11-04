@@ -1,0 +1,26 @@
+﻿@model ShopOnliner.Models.PageView
+@foreach (var item in Model.PageItems)
+{
+    <h3>@item.name</h3>
+    <br/>
+    <img src="@Url.Action("ShowImage", "Home", new {id = item.mobileId})" />
+    <br/>
+    @Html.ActionLink(" к описанию", "Info", "Home", new { id = item.mobileId }, null);
+    <br/> 
+}
+
+<br/>
+
+<strong>
+
+    @Html.ActionLink("<<", "Catalog", "Home", new { type=Model.Type, page = 1}, null)
+    @if (Model.PrevPage>0)
+    { 
+        @Html.ActionLink("Назад", "Catalog", "Home", new { type= Model.Type , page= Model.PrevPage} , null );
+    }
+    @if  (Model.NextPage<=Model.LastPage)
+    {     
+        @Html.ActionLink("Вперед", "Catalog", "Home", new { type = Model.Type, page = Model.NextPage }, null);
+    }
+    @Html.ActionLink(">>", "Catalog", "Home", new { type= Model.Type, page= Model.LastPage}, null)
+</strong>
