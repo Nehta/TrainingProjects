@@ -1,0 +1,26 @@
+﻿
+@foreach (var item in Model)
+{
+    <h3>@item.name</h3>
+    <br/>
+    <img src="@Url.Action("ShowImage", "Home", new {id = item.mobileId})" />
+    <br/>
+    @Html.ActionLink(" к описанию", "Info", "Home", new { id = item.mobileId }, null);
+    <br/> 
+}
+
+<br/>
+
+<strong>
+
+    @Html.ActionLink("<<", "Catalog", "Home", new { type=ViewBag.type, page = 1}, null)
+    @if (ViewBag.prevPage>0)
+    { 
+        @Html.ActionLink("Назад", "Catalog", "Home", new { type= ViewBag.type , page= ViewBag.prevPage} , null );
+    }
+    @if  (ViewBag.nextPage<=ViewBag.lastPage)
+    {     
+        @Html.ActionLink("Вперед", "Catalog", "Home", new { type = ViewBag.type, page = ViewBag.nextPage }, null);
+    }
+    @Html.ActionLink(">>", "Catalog", "Home", new { type= ViewBag.type, page= ViewBag.lastPage}, null)
+</strong>
