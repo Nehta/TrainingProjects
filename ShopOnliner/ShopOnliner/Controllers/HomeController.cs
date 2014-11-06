@@ -11,12 +11,11 @@ namespace ShopOnliner.Controllers
     public class HomeController : Controller
     {
         private IService service;
-        private IKernel AppKernel; 
+        int i = 0;
 
-        public HomeController()
+        public HomeController(IService service)
         {
-            AppKernel = new StandardKernel(new ServiceNinjectModule());
-            this.service = AppKernel.Get<IService>();
+            this.service = service;
         }
         public ActionResult Index()
         {
@@ -29,8 +28,51 @@ namespace ShopOnliner.Controllers
             var lastPage = service.LastPage(type);
             if (!items.Any())
                 return HttpNotFound();
+            var links = AddLinks(page, lastPage);
+            ViewBag.title = Url.Action(null);
             return View(
-                new PageView {PageItems=items, NextPage=page+1, PrevPage= page-1, Type= type, LastPage=lastPage});
+                new CatalogPageView {PageItems=items, Links=links, Type=type});
+        }
+
+        [HttpPost]
+        public ActionResult Catalog(string type, int page, string word)
+        {
+            return RedirectToAction("Search", new { page = 1, type = type, word = word });
+        }
+
+        public ActionResult Search(string type, int page, string word)
+        {
+            var items = service.GetPageItemsFromSearch(page, type ,word);
+            var lastPage = service.LastPageOfSearch(type, word);
+            if (!items.Any())
+                return HttpNotFound();
+            var links = AddLinks(page, lastPage);
+            return View("Catalog",
+                new CatalogPageView { PageItems = items, Links = links, Type = type });
+            
+        }
+
+        [HttpPost]
+        public ActionResult Search(string type, int page, string oldword , string word)
+        {
+            return RedirectToAction("Search", new { page = 1, type = type, word = word });
+        }
+
+        
+
+
+        
+
+
+        private  Dictionary<string,string> AddLinks(int page, int lastPage)
+        {
+            var result = new Dictionary<string, string>();
+            var url = Url.Action(null).Substring(0, Url.Action(null).LastIndexOf("/"));
+            result.Add("<<", url + "/1/");
+            if (page - 1 > 0) result.Add("назад", url + '/' + (page - 1) + '/');
+            if (page + 1 <= lastPage) result.Add ("вперед", url + '/' + (page + 1) + '/');
+            result.Add(">>", url + '/' + lastPage + '/');
+            return result;
         }
 
         public ActionResult MainCatalog()

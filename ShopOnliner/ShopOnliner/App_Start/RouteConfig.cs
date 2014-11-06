@@ -22,8 +22,14 @@ namespace ShopOnliner
             routes.MapRoute(
              name: "Info",
              url: "Home/Catalog/info/{id}",
-             defaults: new { controller = "Home", action = "Info"},
-             constraints : new {id = @"\d+"}
+             defaults: new { controller = "Home", action = "Info" },
+             constraints: new { id = @"\d+" }
+         );
+            routes.MapRoute(
+             name: "Search",
+             url: "Home/Catalog/search/{type}/name={word}/{page}",
+             defaults: new { controller = "Home", action = "Search" },
+             constraints: new { page = @"\d+" }
          );
 
             routes.MapRoute(

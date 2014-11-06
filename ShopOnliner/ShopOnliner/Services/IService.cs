@@ -10,7 +10,10 @@ namespace ShopOnliner.Services
     public interface IService
     {
         IQueryable<Item> GetPageItems(string type, int page);
+        IEnumerable<Item> GetPageItemsFromSearch(int page, string type, string word);
         Item FindItem(int id);
         int LastPage(string type);
+        int LastPageOfSearch(string type, string word);
+ 
     }
 }

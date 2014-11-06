@@ -1,4 +1,15 @@
-﻿@model ShopOnliner.Models.PageView
+﻿@model ShopOnliner.Models.CatalogPageView
+
+
+<aside>
+    <form method="post">
+        Поиск по имени
+        <input type="text" id="word" name="word"/>
+        <input type="submit" name="Искать" />
+    </form>
+</aside>
+
+<h1>@ViewBag.title</h1>
 @foreach (var item in Model.PageItems)
 {
     <h3>@item.name</h3>
@@ -11,16 +22,14 @@
 
 <br/>
 
-<strong>
 
-    @Html.ActionLink("<<", "Catalog", "Home", new { type=Model.Type, page = 1}, null)
-    @if (Model.PrevPage>0)
-    { 
-        @Html.ActionLink("Назад", "Catalog", "Home", new { type= Model.Type , page= Model.PrevPage} , null );
-    }
-    @if  (Model.NextPage<=Model.LastPage)
-    {     
-        @Html.ActionLink("Вперед", "Catalog", "Home", new { type = Model.Type, page = Model.NextPage }, null);
-    }
-    @Html.ActionLink(">>", "Catalog", "Home", new { type= Model.Type, page= Model.LastPage}, null)
-</strong>
+@foreach (var link in Model.Links)
+{
+    <strong>
+        <a href="@link.Value">@link.Key</a>
+    </strong>
+}
+
+@ViewBag.title
+
+
