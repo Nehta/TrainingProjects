@@ -11,67 +11,72 @@ namespace ShopOnliner.Controllers
     public class HomeController : Controller
     {
         private IService service;
-        int i = 0;
 
         public HomeController(IService service)
         {
             this.service = service;
         }
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Catalog(string type, int page)
+        public ActionResult Catalog(string type, int page, SearchModel model)
         {
+            if (this.Request.QueryString.HasKeys())
+                return Search(type, 1, model);
+           
             var items = service.GetPageItems(type, page);
             var lastPage = service.LastPage(type);
             if (!items.Any())
                 return HttpNotFound();
             var links = AddLinks(page, lastPage);
-            ViewBag.title = Url.Action(null);
             return View(
                 new CatalogPageView {PageItems=items, Links=links, Type=type});
         }
 
-        [HttpPost]
-        public ActionResult Catalog(string type, int page, string word)
+        public ActionResult Search(string type, int page, SearchModel model)
         {
-            return RedirectToAction("Search", new { page = 1, type = type, word = word });
-        }
-
-        public ActionResult Search(string type, int page, string word)
-        {
-            var items = service.GetPageItemsFromSearch(page, type ,word);
-            var lastPage = service.LastPageOfSearch(type, word);
+            var items = service.GetPageItemsFromSearch(type , model);
+            var lastPage = service.LastPageOfSearch(type, model);
             if (!items.Any())
-                return HttpNotFound();
-            var links = AddLinks(page, lastPage);
-            return View("Catalog",
+                return  View("BadSearch");
+            var links = AddSearchLinks(lastPage, model, type, page);
+           return View(
                 new CatalogPageView { PageItems = items, Links = links, Type = type });
             
         }
 
-        [HttpPost]
-        public ActionResult Search(string type, int page, string oldword , string word)
+        private Dictionary<string, string> AddSearchLinks(int lastPage, SearchModel model, string type, int page)
         {
-            return RedirectToAction("Search", new { page = 1, type = type, word = word });
+            var result = new Dictionary<string, string>();
+    
+            result.Add("<<", Url.Action("Catalog", "Home", new { type = type, page = page , 
+                Name = model.Name, MinPrice=model.MinPrice, MaxPrice=model.MaxPrice, Rate=model.Rate, SearchPage=1}));
+
+           
+            if (model.SearchPage - 1 > 0) result.Add("назад", Url.Action("Catalog", "Home", new { type = type, page = page, 
+             Name = model.Name, MinPrice=model.MinPrice, MaxPrice=model.MaxPrice, Rate=model.Rate, SearchPage=model.SearchPage-1}));
+      
+            if (model.SearchPage + 1 <= lastPage) result.Add("вперед", Url.Action("Catalog", "Home", new { type = type, page = page,
+             Name = model.Name, MinPrice=model.MinPrice, MaxPrice=model.MaxPrice, Rate=model.Rate, SearchPage=model.SearchPage+1}));
+   
+            result.Add(">>", Url.Action("Catalog", "Home", new { type = type, page = page, 
+             Name = model.Name, MinPrice=model.MinPrice, MaxPrice=model.MaxPrice, Rate=model.Rate,SearchPage=lastPage}));
+        
+            return result;
         }
-
-        
-
-
-        
-
 
         private  Dictionary<string,string> AddLinks(int page, int lastPage)
         {
             var result = new Dictionary<string, string>();
             var url = Url.Action(null).Substring(0, Url.Action(null).LastIndexOf("/"));
-            result.Add("<<", url + "/1/");
-            if (page - 1 > 0) result.Add("назад", url + '/' + (page - 1) + '/');
-            if (page + 1 <= lastPage) result.Add ("вперед", url + '/' + (page + 1) + '/');
-            result.Add(">>", url + '/' + lastPage + '/');
+            
+            result.Add("<<", url + "/1");
+            if (page - 1 > 0) result.Add("назад", url + '/' + (page - 1));
+            if (page + 1 <= lastPage) result.Add ("вперед", url + '/' + (page + 1));
+            result.Add(">>", url + '/' + lastPage);
             return result;
         }
 

@@ -2,10 +2,17 @@
 
 
 <aside>
-    <form method="post">
-        Поиск по имени
-        <input type="text" id="word" name="word"/>
-        <input type="submit" name="Искать" />
+    <form method="get">
+        Часть или полное название
+        <input type="text" name="Name"/>
+        Минимальная цена 
+        <input type="text" name="MinPrice" />
+        Максимальная цена
+        <input type="text" name="MaxPrice" />
+        Максимальныый рейтинг
+        <input type="text" name="Rate" />
+        <input type="hidden" name="SearchPage" value="1" />
+        <button type="submit" name="Искать" />
     </form>
 </aside>
 
@@ -26,10 +33,10 @@
 @foreach (var link in Model.Links)
 {
     <strong>
-        <a href="@link.Value">@link.Key</a>
+        <a href="@link.Value" >@link.Key</a>
     </strong>
 }
 
-@ViewBag.title
+<p>@ViewBag.title</p>
 
 

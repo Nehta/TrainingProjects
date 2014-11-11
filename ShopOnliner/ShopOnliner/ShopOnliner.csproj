@@ -234,6 +234,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\CatalogPageView.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceNinjectModule.cs" />
     <Compile Include="Services\IService.cs" />
@@ -370,6 +371,7 @@
     <Content Include="Views\Home\Info.cshtml" />
     <Content Include="Views\Shared\CheckPost.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\BadSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

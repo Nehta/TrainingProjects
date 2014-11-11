@@ -27,7 +27,7 @@ namespace ShopOnliner
          );
             routes.MapRoute(
              name: "Search",
-             url: "Home/Catalog/search/{type}/name={word}/{page}",
+             url: "Home/Catalog/search/{type}",
              defaults: new { controller = "Home", action = "Search" },
              constraints: new { page = @"\d+" }
          );
@@ -35,7 +35,7 @@ namespace ShopOnliner
             routes.MapRoute(
                name: "Items",
                url: "Home/Catalog/{type}/{page}",
-               defaults: new { controller = "Home", action = "Catalog" , page=@"\d+" },
+               defaults: new { controller = "Home", action = "Catalog" },
                constraints: new {page = @"\d+"}
            );
 
