@@ -73,7 +73,20 @@ namespace ShopOnliner.Services
             if (searchModel.Rate != null)
                 rateFilter = maxPriceFilter.Where(x => x.rate >= searchModel.Rate);
             else rateFilter = maxPriceFilter;
-            return rateFilter;
+            return rateFilter.Where(x=>!searchModel.checkbox_1 || hasAttribute(searchModel.attr_1, x))
+                             .Where(x => !searchModel.checkbox_2 || hasAttribute(searchModel.attr_2, x))
+                             .Where(x => !searchModel.checkbox_3 || hasAttribute(searchModel.attr_3, x))
+                             .Where(x=>!searchModel.checkbox_4 || hasAttribute(searchModel.attr_4, x))
+                             .Where(x=>!searchModel.checkbox_5 || hasAttribute(searchModel.attr_5, x));
+        }
+
+        private bool hasAttribute(string attr, Item item)
+        {
+            foreach (var category in item.Categories)
+                foreach (var subcategory in category.Categories1)
+                    if (subcategory.name == attr && !subcategory.value.Contains("Нет"))
+                        return true;
+            return false;
         }
         
     }

@@ -20,7 +20,7 @@ namespace ShopOnliner.Controllers
 
         public ActionResult Catalog(string type, int page, SearchModel model)
         {
-            ViewBag.title = model.label_1;
+            ViewBag.title = model.checkbox_1;
             ViewBag.title2 = model.Name;
             if (this.Request.QueryString.HasKeys())
                 return Search(type, 1, model);

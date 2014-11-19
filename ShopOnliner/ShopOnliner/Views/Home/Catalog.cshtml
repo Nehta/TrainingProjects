@@ -78,10 +78,9 @@
         {
             { index++; }
             <p>@i</p>
-            @*<input type="checkbox" name="checkbox_@index" value="true" /> <label for="checkbox_@index" name="label_@index"> Наличие Важно</label>*@
+            <input type="hidden" value="@i" name="attr_@index" />
             @Html.CheckBox("checkbox_" + index, false);
-            <br/>
-            <label for="checkbox_@index" name="label_@index" />
+            <label for="checkbox_@index">Наличие Важно</label>
             <br /><br />
         }
 

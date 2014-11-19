@@ -36,7 +36,7 @@ namespace ShopOnliner
            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "Home", action = "MainCatalog"}
+                defaults: new { controller = "Home", action = "Catalog", type="mobile", page=1}
             );
 
            routes.MapRoute(
