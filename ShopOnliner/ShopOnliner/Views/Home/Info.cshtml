@@ -1,17 +1,26 @@
-﻿<h1>@Model.name</h1>
+﻿@model ShopOnliner.Models.Item
+
+<h1>@Model.name</h1>
 
 <p>@Model.rate</p>
 <p>@Model.minPrice</p>
 <p>@Model.maxPrice</p>
 
-@foreach (var category in Model.Categories)
-{ 
-    <h5>@category.name</h5>
-    foreach (var subcategory in category.Categories1)
+<table class="table">
+    @foreach (var category in Model.Categories)
     { 
-       <p> @subcategory.name : @subcategory.value</p>
+        <tr class="info">
+            <th>@category.name </th>
+        </tr>
+    
+        foreach (var subcategory in category.Categories1)
+        { 
+            <tr>
+                <td> @subcategory.name : @subcategory.value</td>
+            </tr>
+        }
+        <br/>
     }
-    <br/>
-}
+</table>
 
 

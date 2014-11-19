@@ -1,7 +1,9 @@
-﻿<ul>
-    <li><h2>@Html.ActionLink("Мобильные телефоны", "Catalog", "Home", new { type = "mobile", page = "1" }, null)</h2></li>
-    <li><h2>@Html.ActionLink("Мониторы", "Catalog", "Home", new { type = "display", page = "1" }, null)</h2></li>
-    <li><h2>@Html.ActionLink("Планшеты", "Catalog", "Home", new { type = "tabletpc", page = "1" }, null)</h2></li>
-    <li><h2>@Html.ActionLink("Проекторы", "Catalog", "Home", new { type = "projectors", page = "1" }, null)</h2></li>
-    <li><h2>@Html.ActionLink("Фотоаппараты", "Catalog", "Home", new { type = "photo", page = "1" }, null)</h2></li>
+﻿@model IEnumerable<string>
+
+
+<ul>
+    @foreach (var i in Model)
+    { 
+        <li><h2>@Html.ActionLink(i, "Catalog", "Home", new { type = i, page = "1" }, null)</h2></li>
+    }
 </ul>

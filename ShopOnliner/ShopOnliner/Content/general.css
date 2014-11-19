@@ -1,0 +1,32 @@
+#body {
+
+    clear: both;
+    min-height:800px;
+    
+}
+
+tr {
+    align-content:center;
+}
+footer {
+    clear: both;
+    font-size: .8em;
+    height: 100px;
+    background-color:#1b9fff;
+}
+
+header {
+    clear: both;
+    font-size: .8em;
+    height: 100px;
+    background-color:#1b9fff;
+}
+
+div {
+    position:relative;
+    overflow:auto;
+}
+
+.white {
+    color:#ffffff;
+}

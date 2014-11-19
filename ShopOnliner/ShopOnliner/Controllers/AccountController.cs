@@ -54,7 +54,7 @@ namespace ShopOnliner.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MainCatalog", "Home");
         }
 
         //
@@ -81,7 +81,7 @@ namespace ShopOnliner.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("MainCatalog", "Home");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -337,7 +337,7 @@ namespace ShopOnliner.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MainCatalog", "Home");
             }
         }
 

@@ -10,5 +10,7 @@ namespace ShopOnliner.Models
         public IEnumerable<Item> PageItems;
         public Dictionary<string, string> Links;
         public string Type;
+        public IEnumerable<string> Menu;
+        public IEnumerable<string> Attributes;
     }
 }

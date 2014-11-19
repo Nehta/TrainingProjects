@@ -8,18 +8,31 @@ namespace ShopOnliner.Services
 {
     public class ItemService:IService
     {
+        public  const int ITEMS_PER_PAGE=70;
+
         private ItemsEntities context = new ItemsEntities();
 
-        public IQueryable<Item> GetPageItems(string type, int page)
+        public IEnumerable<Item> GetPageItems(string type, int page)
         {
-            return context.Items.Where(x => x.type == type).OrderBy(x=>x.name).Skip(10 * (page - 1)).Take(10);
+            return context.Items.Where(x => x.type == type).OrderBy(x => x.name).Skip(ITEMS_PER_PAGE * (page - 1)).Take(ITEMS_PER_PAGE);
         }
+
+        public IEnumerable<string> GetMenu()
+        {
+            return context.Items.Select(x => x.type).Distinct();
+        }
+
+        public IEnumerable<string> GetAttributes(string type)
+        {
+            return context.Categories.Where(x => x.Category1!=null && x.Category1.Item.type == type && (x.value.Contains("Да ")||x.value.Contains("Нет "))).Select(x => x.name).Take(5);
+        }
+
 
         public IEnumerable<Item> GetPageItemsFromSearch(string type, SearchModel searchModel )
         {
             int page = searchModel.SearchPage;
             return Search(searchModel, type).
-                OrderBy(x=>x.name).Skip(10 * (page - 1)).Take(10);
+                OrderBy(x => x.name).Skip(ITEMS_PER_PAGE * (page - 1)).Take(ITEMS_PER_PAGE);
         }
 
         public Item FindItem(int id)
@@ -29,12 +42,12 @@ namespace ShopOnliner.Services
 
         public int LastPageOfSearch( string type, SearchModel searchModel)
         {
-            return (Search(searchModel,type).Count() - 1) / 10 + 1;
+            return (Search(searchModel, type).Count() - 1) / ITEMS_PER_PAGE + 1;
         }
 
         public int LastPage(string type)
         {
-            return (context.Items.Where(x => x.type == type).Count() - 1) / 10 + 1;
+            return (context.Items.Where(x => x.type == type).Count() - 1) / ITEMS_PER_PAGE + 1;
         }
 
         private IEnumerable<Item> Search(SearchModel searchModel, string type)
@@ -44,6 +57,9 @@ namespace ShopOnliner.Services
             IEnumerable<Item> minPriceFilter;
             IEnumerable<Item> maxPriceFilter;
             IEnumerable<Item> rateFilter;
+
+            
+
 
             if (searchModel.Name != null)
                 nameFilter = items.Where(x => x.name.Contains(searchModel.Name));

@@ -14,12 +14,6 @@ namespace ShopOnliner
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-              name: "Catalog",
-              url: "Home/Catalog",
-              defaults: new { controller = "Home", action = "MainCatalog" }
-          );
-
-            routes.MapRoute(
              name: "Info",
              url: "Home/Catalog/info/{id}",
              defaults: new { controller = "Home", action = "Info" },
@@ -42,7 +36,7 @@ namespace ShopOnliner
            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "Home", action = "Index"}
+                defaults: new { controller = "Home", action = "MainCatalog"}
             );
 
            routes.MapRoute(

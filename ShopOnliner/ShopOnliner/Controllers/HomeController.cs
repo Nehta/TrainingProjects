@@ -17,13 +17,11 @@ namespace ShopOnliner.Controllers
             this.service = service;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult Catalog(string type, int page, SearchModel model)
         {
+            ViewBag.title = model.label_1;
+            ViewBag.title2 = model.Name;
             if (this.Request.QueryString.HasKeys())
                 return Search(type, 1, model);
            
@@ -33,7 +31,7 @@ namespace ShopOnliner.Controllers
                 return HttpNotFound();
             var links = AddLinks(page, lastPage);
             return View(
-                new CatalogPageView {PageItems=items, Links=links, Type=type});
+                new CatalogPageView {PageItems=items, Links=links, Type=type, Menu=service.GetMenu(), Attributes=service.GetAttributes(type)});
         }
 
         public ActionResult Search(string type, int page, SearchModel model)
@@ -44,7 +42,7 @@ namespace ShopOnliner.Controllers
                 return  View("BadSearch");
             var links = AddSearchLinks(lastPage, model, type, page);
            return View(
-                new CatalogPageView { PageItems = items, Links = links, Type = type });
+                new CatalogPageView { PageItems = items, Links = links, Type = type, Menu = service.GetMenu(), Attributes = service.GetAttributes(type) });
             
         }
 
@@ -52,20 +50,25 @@ namespace ShopOnliner.Controllers
         {
             var result = new Dictionary<string, string>();
     
-            result.Add("<<", Url.Action("Catalog", "Home", new { type = type, page = page , 
-                Name = model.Name, MinPrice=model.MinPrice, MaxPrice=model.MaxPrice, Rate=model.Rate, SearchPage=1}));
-
-           
-            if (model.SearchPage - 1 > 0) result.Add("назад", Url.Action("Catalog", "Home", new { type = type, page = page, 
-             Name = model.Name, MinPrice=model.MinPrice, MaxPrice=model.MaxPrice, Rate=model.Rate, SearchPage=model.SearchPage-1}));
-      
-            if (model.SearchPage + 1 <= lastPage) result.Add("вперед", Url.Action("Catalog", "Home", new { type = type, page = page,
-             Name = model.Name, MinPrice=model.MinPrice, MaxPrice=model.MaxPrice, Rate=model.Rate, SearchPage=model.SearchPage+1}));
-   
-            result.Add(">>", Url.Action("Catalog", "Home", new { type = type, page = page, 
-             Name = model.Name, MinPrice=model.MinPrice, MaxPrice=model.MaxPrice, Rate=model.Rate,SearchPage=lastPage}));
-        
+            result.Add("<<", buildSearchPageLink(1, type, model));
+            if (model.SearchPage - 1 > 0) result.Add("назад", buildSearchPageLink(model.SearchPage-1, type, model));
+            if (model.SearchPage + 1 <= lastPage) result.Add("вперед", buildSearchPageLink(model.SearchPage + 1, type, model));
+            result.Add(">>",  buildSearchPageLink(lastPage, type, model));
             return result;
+        }
+
+        private string buildSearchPageLink(int page, string type, SearchModel model)
+        {
+            return Url.Action("Catalog", "Home", new
+            {
+                type = type,
+                page = page,
+                Name = model.Name,
+                MinPrice = model.MinPrice,
+                MaxPrice = model.MaxPrice,
+                Rate = model.Rate,
+                SearchPage = page
+            });
         }
 
         private  Dictionary<string,string> AddLinks(int page, int lastPage)
@@ -82,14 +85,15 @@ namespace ShopOnliner.Controllers
 
         public ActionResult MainCatalog()
         {
-            return View();
+            return View(service.GetMenu());
         }
 
         public ActionResult Info(int id)
         {
-            ViewData.Model = service.FindItem(id);
-            return View();
+            return View(service.FindItem(id));
         }
+
+        
 
         public FileContentResult ShowImage(int id)
         {

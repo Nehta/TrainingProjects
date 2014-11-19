@@ -1,42 +1,105 @@
 ﻿@model ShopOnliner.Models.CatalogPageView
 
+@*<style>
+         .left {
+           float:left;
+            clear:none;
 
-<aside>
-    <form method="get">
+        }
+        .right {
+            float:right;
+            clear:none;
+            background-color:#4cff00;
+        }
+        .cell {
+            min-width:10px;
+            max-width:1600px;
+        }
+        div {
+            clear:both;
+        }
+    </style>*@
+
+
+<div class="left col-md-1 list-group" align="left">
+
+    @ViewBag.title
+    @ViewBag.title2
+    @foreach (var i in Model.Menu)
+    {
+        <a class="list-group-item" href="@Url.Action( "Catalog", "Home", new { type = i, page = "1" }, null)"><span class="glyphicon glyphicon-share-alt"></span>@i</a>
+    }
+
+</div>
+
+<div class="left col-md-9"  align="center">
+    <table class="table" >
+        @for (int i = 0; i <= 10; i++)
+        {
+            <tr>
+                @foreach (var item in Model.PageItems.Skip(7 * i).Take(7))
+                {
+                    <td>
+                        <strong><a href="@Url.Action("Info", "Home", new { id = item.mobileId }, null)">@item.name</a></strong>
+                        <br />
+                        <img src="@Url.Action("ShowImage", "Home", new { id = item.mobileId })" title="@item.GetDescription()" />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="right  col-md2" align="center" >
+
+    <form method="get" >
         Часть или полное название
-        <input type="text" name="Name"/>
-        Минимальная цена 
-        <input type="text" name="MinPrice" />
+        <br />
+        <input type="text" name="Name" />
+        <br />
+        Минимальная цена
+        <br />
+        <input type="text" name="MinPrice"/>
+        <br />
         Максимальная цена
+        <br />
         <input type="text" name="MaxPrice" />
-        Максимальныый рейтинг
+        <br />
+        Минимальный рейтинг
+        <br />
         <input type="text" name="Rate" />
+        <br />
         <input type="hidden" name="SearchPage" value="1" />
-        <button type="submit" name="Искать" />
-    </form>
-</aside>
-
-<h1>@ViewBag.title</h1>
-@foreach (var item in Model.PageItems)
-{
-    <h3>@item.name</h3>
-    <br/>
-    <img src="@Url.Action("ShowImage", "Home", new {id = item.mobileId})" />
-    <br/>
-    @Html.ActionLink(" к описанию", "Info", "Home", new { id = item.mobileId }, null);
-    <br/> 
-}
-
-<br/>
+        <br />
+        @{
+            var index = 0;   
+        }
+        @foreach (var i in Model.Attributes)
+        {
+            { index++; }
+            <p>@i</p>
+            @*<input type="checkbox" name="checkbox_@index" value="true" /> <label for="checkbox_@index" name="label_@index"> Наличие Важно</label>*@
+            @Html.CheckBox("checkbox_" + index, false);
+            <br/>
+            <label for="checkbox_@index" name="label_@index" />
+            <br /><br />
+        }
 
 
-@foreach (var link in Model.Links)
-{
-    <strong>
-        <a href="@link.Value" >@link.Key</a>
-    </strong>
-}
+        <input type="submit" value="Искать" class="btn btn-primary btn-block" />
+</form>
 
-<p>@ViewBag.title</p>
+</div>
 
 
+
+
+
+<div class="col-md-12" align="center">
+    @foreach (var link in Model.Links)
+    {
+        <strong>
+            <a href="@link.Value">@link.Key</a>
+        </strong>
+    }
+</div>

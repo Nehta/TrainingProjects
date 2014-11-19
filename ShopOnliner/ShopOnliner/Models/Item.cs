@@ -30,4 +30,16 @@ namespace ShopOnliner.Models
     
         public virtual ICollection<Category> Categories { get; set; }
     }
+
+    public partial class Item
+    {
+        public string GetDescription()
+        {
+            var result=String.Empty;
+            foreach (var category in Categories)
+                foreach (var subcategory in category.Categories1)
+                    result += subcategory.name + ": " + subcategory.value + Environment.NewLine;
+            return result;
+        }
+    }
 }
